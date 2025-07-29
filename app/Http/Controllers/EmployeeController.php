@@ -7,60 +7,166 @@ use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
-        $employees = Employee::all();
-        return view('employees.index', compact('employees'));
+        // $employees = Employee::all();
+        return view('employees.index', ['employees'=> Employee::all()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create()
     {
         return view('employees.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'first_name' => [
+                'required',
+                'string',
+                'max:255',
+                'min:1',
+                'filter'
+            ],
+            'last_name' => [
+                'required',
+                'string',
+                'max:255',
+                'min:1',
+                'filter'
+            ],
+            'rank' => [
+                'required',
+                'string',
+                'max:255',
+                'filter'
+            ],
+            'email' => [
+                'required',
+                'email',
+                'unique:employees',
+                'filter'
+            ],
+            'phone' => [
+                'required',
+                'string',
+                'max:20',
+                'filter'
+            ],
+            'city' => [
+                'required',
+                'string',
+                'max:100',
+                'filter'
+            ],
+            'salary' => [
+                'required',
+                'numeric',
+                'min:0',
+                'filter'
+            ],
+            'department' => [
+                'required',
+                'string',
+                'max:100',
+                'filter'
+            ],
+            'description' => [
+                'nullable',
+                'string',
+                'max:500',
+                'filter'
+            ],
+        ]);
+        Employee::create($request->all());
+
+        
+        return redirect()->route('employees.index')->with('success', 'Employee created successfully.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Employees $employees)
+
+    public function show($id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        return view('employees.show', compact('employee'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Employees $employees)
+    public function edit($id)
     {
-        //
+        $employee = Employee::findOrFail($id);
+        return view('employees.edit', compact('employee'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Employees $employees)
+    public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'first_name' => [
+                'required',
+                'string',
+                'max:255',
+                'min:1',
+                'filter'
+            ],
+            'last_name' => [
+                'required',
+                'string',
+                'max:255',
+                'min:1',
+                'filter'
+            ],
+            'rank' => [
+                'required',
+                'string',
+                'max:255',
+                'filter'
+            ],
+            'email' => [
+                'required',
+                'email',
+                'unique:employees,email,'.$id,
+                'filter'
+            ],
+            'phone' => [
+                'required',
+                'string',
+                'max:20',
+                'filter'
+            ],
+            'city' => [
+                'required',
+                'string',
+                'max:100',
+                'filter'
+            ],
+            'salary' => [
+                'required',
+                'numeric',
+                'min:0',
+                'filter'
+            ],
+            'department' => [
+                'required',
+                'string',
+                'max:100',
+                'filter'
+            ],
+            'description' => [
+                'nullable',
+                'string',
+                'max:500',
+                'filter'
+            ],
+        ]);
+        $employee = Employee::findOrFail($id);
+        $employee->update($request->all());
+        return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Employees $employees)
+    public function destroy($id)
     {
-        //
+        $employee= Employee::findOrFail($id);
+        $employee->delete();
+        return redirect()->route('employees.index')->with('success', 'Employee deleted successfully.');
     }
 }

@@ -21,7 +21,7 @@ return new class extends Migration
             $table->string('city');
             $table->decimal('salary', 10, 2);
             $table->string('department');
-            $table->string('description')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
