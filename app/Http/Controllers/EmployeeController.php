@@ -155,18 +155,19 @@ class EmployeeController extends Controller
                 'nullable',
                 'string',
                 'max:500',
-                'filter'
+                'filter                                                 '
             ],
+        
         ]);
         $employee = Employee::findOrFail($id);
         $employee->update($request->all());
-        return redirect()->route('employees.index')->with('success', 'Employee updated successfully.');
+        return redirect()->route('employees.index')->with('update', 'Employee updated successfully.');
     }
 
     public function destroy($id)
     {
         $employee= Employee::findOrFail($id);
         $employee->delete();
-        return redirect()->route('employees.index')->with('success', 'Employee deleted successfully.');
+        return redirect()->route('employees.index')->with('destroy', 'Employee deleted successfully.');
     }
 }

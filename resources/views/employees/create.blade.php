@@ -1,20 +1,30 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>إضافة موظف جديد</title>
+    <meta charset="UTF-8">
+    <title>Add New Employee</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
+
     <style>
-        form { max-width: 600px; margin: 0 auto; }
-        label { display: block; margin-top: 10px; }
-        input, textarea, select { width: 100%; padding: 8px; margin-top: 5px; }
-        button { margin-top: 15px; padding: 10px 20px; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            padding: 40px;
+        }
     </style>
 </head>
 <body>
-    <h1>إضافة موظف جديد</h1>
-    <form action="{{ route('employees.store') }}" method="POST">
-        @csrf
-        @include('employees._form')
-        <button type="submit">إضافة</button>
-    </form>
+    <div class="container">
+        <h2 class="mb-4">Add New Employee</h2>
+
+        <form action="{{ route('employees.store') }}" method="POST" class="bg-white p-4 rounded shadow-sm">
+            @include('employees._form')
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary">Save Employee</button>
+                <a href="{{ route('employees.index') }}" class="btn btn-outline-secondary">Back</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>

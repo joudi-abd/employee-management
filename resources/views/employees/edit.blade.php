@@ -1,23 +1,33 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>تعديل بيانات الموظف</title>
+    <meta charset="UTF-8">
+    <title>Edit Employee</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <style>
-        form { max-width: 600px; margin: 0 auto; }
-        label { display: block; margin-top: 10px; }
-        input, textarea, select { width: 100%; padding: 8px; margin-top: 5px; }
-        button { margin-top: 15px; padding: 10px 20px; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            padding: 40px;
+        }
     </style>
 </head>
 <body>
-    <h1>تعديل بيانات الموظف</h1>
+    <div class="container">
+        <h2 class="mb-4">Edit Employee</h2>
 
-    <form action="{{ route('employees.update' , $employee) }}" method="POST">
-        @csrf
-        @method('PUT')
+        <form action="{{ route('employees.update', $employee) }}" method="POST" class="bg-white p-4 rounded shadow-sm">
+            @csrf
+            @method('PUT')
 
-        @include('employees._form')
-        <button type="submit">تحديث</button>
-    </form>
+            @include('employees._form')
+
+            <div class="text-end">
+                <button type="submit" class="btn btn-primary">Update</button>
+                <a href="{{ route('employees.index') }}" class="btn btn-outline-secondary">Back</a>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
