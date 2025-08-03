@@ -1,27 +1,42 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>تفاصيل الموظف</title>
+    <meta charset="UTF-8">
+    <title>Employee Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
     <style>
-        .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-        .item { margin-bottom: 10px; }
-        .label { font-weight: bold; }
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #f8f9fa;
+            padding: 40px;
+        }
+        .profile-img {
+            max-width: 150px;
+            border-radius: 50%;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>تفاصيل الموظف</h1>
-        <div class="item"><span class="label">الاسم الأول:</span> {{ $employee->first_name }}</div>
-        <div class="item"><span class="label">الاسم الأخير:</span> {{ $employee->last_name }}</div>
-        <div class="item"><span class="label">المسمى الوظيفي:</span> {{ $employee->rank }}</div>
-        <div class="item"><span class="label">البريد الإلكتروني:</span> {{ $employee->email }}</div>
-        <div class="item"><span class="label">رقم الهاتف:</span> {{ $employee->phone }}</div>
-        <div class="item"><span class="label">المدينة:</span> {{ $employee->city }}</div>
-        <div class="item"><span class="label">القسم:</span> {{ $employee->department }}</div>
-        <div class="item"><span class="label">الراتب:</span> {{ $employee->salary }}</div>
-        <div class="item"><span class="label">الوصف:</span> {{ $employee->description }}</div>
+    <div class="container bg-white p-4 rounded shadow-sm">
+        <h2 class="mb-4">Employee Details</h2>
 
-        <a href="{{ route('employees.index') }}">الرجوع إلى القائمة</a>
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item"><strong>Full Name:</strong> {{ $employee->first_name }} {{ $employee->last_name }}</li>
+            <li class="list-group-item"><strong>Rank:</strong> {{ $employee->rank }}</li>
+            <li class="list-group-item"><strong>Email:</strong> {{ $employee->email }}</li>
+            <li class="list-group-item"><strong>Phone:</strong> {{ $employee->phone }}</li>
+            <li class="list-group-item"><strong>City:</strong> {{ $employee->city }}</li>
+            <li class="list-group-item"><strong>Department:</strong> {{ $employee->department }}</li>
+            <li class="list-group-item"><strong>Salary:</strong> ${{ number_format($employee->salary, 2) }}</li>
+            <li class="list-group-item"><strong>Description:</strong> {{ $employee->description }}</li>
+        </ul>
+
+        <div class="mt-4 text-end">
+            <a href="{{ route('employees.index') }}" class="btn btn-outline-secondary">Back to List</a>
+        </div>
     </div>
 </body>
 </html>
