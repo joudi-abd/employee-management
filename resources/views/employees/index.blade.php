@@ -1,29 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Employee List</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
-
-    <style>
-        body {
-           font-family:'Georgia', serif;
-            background-color: #f8f9fa;
-            padding: 20px;
-        }
-        .table th, .table td {
-            vertical-align: middle;
-        }
-        .btn-group .btn {
-            margin-right: 5px;
-        }
-    </style>
-</head>
-<body>
-
-    <div class="container">
-        <h1 class="mb-4 ">Employee List</h1>
+@extends('layouts.app')
+@section('title', 'Employee List')
+@section('page title', 'Employee List') 
+@section('breadcrumb')  
+    <li class="breadcrumb-item active" aria-current="page">Employee List</li>
+@endsection
+@section('content')
+    <div class="container" style=" 
+            background-color: #f0f2f5;
+            padding: 20px;">
 
         @if(session('success'))
             <div class="alert alert-success">{{ session('success') }}</div>
@@ -36,14 +20,15 @@
         @endif
 
         <div class="mb-3 text-end">
-            <a href="{{ route('employees.create') }}" class="btn btn-outline-info">
-                + Add New Employee
+            <a href="{{ route('employees.create') }}" class="btn craete" >
+                <i class="fa-solid fa-plus"></i>
+                 Add New Employee
             </a>
         </div>
 
         <div class="table-responsive">
             <table class="table table-bordered table-hover shadow-sm bg-white">
-                <thead class="table-info">
+                <thead >
                     <tr>
                         <th>Full Name</th>
                         <th>Rank</th>
@@ -70,12 +55,12 @@
                             <td>
                                 <div class="btn-group" role="group">
                                     <a href="{{ route('employees.show', $employee->id) }}" class="btn btn-outline-info btn-sm">View</a>
-                                    <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-outline-secondary btn-sm">Edit</a>
                                     <form action="{{ route('employees.destroy', $employee->id) }}" method="POST" onsubmit="return confirm('Are you sure?')">
                                         @csrf
                                         @method('DELETE')
                                         <button class="btn btn-outline-danger btn-sm" type="submit">Delete</button>
                                     </form>
+                                    <a href="{{ route('employees.edit', $employee->id) }}" class="btn btn-outline-secondary btn-sm">Edit</a>
                                 </div>
                             </td>
                         </tr>
@@ -89,8 +74,5 @@
         </div>
     </div>
 
-
-
-</body>
-</html>
+@endsection
 

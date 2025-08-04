@@ -4,8 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
 
 Route::get('/', function () {
-    return view('welcome');
-});
+    return view('layouts.app');
+})->name('app');
 
 // Route::resource('/employees', EmployeeController::class);
 Route::get('/employees', [EmployeeController::class , 'index'])->name('employees.index');
